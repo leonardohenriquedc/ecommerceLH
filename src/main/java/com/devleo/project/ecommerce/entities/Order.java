@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,4 +34,18 @@ public class Order {
     @JoinColumn(name = "client_id")
     //Criando a conexão entre tabelas * -> 1
     private User client;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> orderItem = new HashSet<>();
+
+    public Set<OrderItem> getOrderItem() {
+        return orderItem;
+    }
+
+    public List<Product> getProducts() {
+        return this.getOrderItem().stream().map(x -> x.getProduct()).toList();
+    }
 }

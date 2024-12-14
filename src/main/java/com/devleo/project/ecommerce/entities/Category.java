@@ -3,29 +3,26 @@ package com.devleo.project.ecommerce.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 
+@ToString
+
 @NoArgsConstructor
 @AllArgsConstructor
 
-@ToString
-
 @Entity
-@Table(name = "tb_payment")
-public class Payment {
-
+@Table(name = "tb_category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant moment;
+    private String name;
 
-    //Associação
-    @OneToOne
-    @MapsId
-    private Order order;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
 }
