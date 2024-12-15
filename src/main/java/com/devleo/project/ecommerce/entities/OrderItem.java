@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -14,6 +16,8 @@ import lombok.*;
 @Table(name = "tb_order_item")
 public class OrderItem {
 
+    @Setter
+    @Getter
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
 
@@ -37,11 +41,16 @@ public class OrderItem {
         this.getId().setProduct(product);
     }
 
-    public OrderItemPK getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id);
     }
 
-    public void setId(OrderItemPK id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

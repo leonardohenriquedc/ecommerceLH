@@ -5,6 +5,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -33,5 +35,18 @@ public class OrderItemPK {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItemPK that = (OrderItemPK) o;
+        return Objects.equals(order, that.order) && Objects.equals(product, that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, product);
     }
 }

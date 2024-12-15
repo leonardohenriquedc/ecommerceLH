@@ -5,12 +5,13 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 
-@ToString
+//@ToString
 
 @Getter
 @Setter
@@ -40,10 +41,24 @@ public class Product {
     )
     private Set<Category> categories = new HashSet<>();
 
+    @Getter
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> orderItems = new HashSet<>();
 
     public List<Order> getOrder(){
         return this.getOrderItems().stream().map(x -> x.getOrder()).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
