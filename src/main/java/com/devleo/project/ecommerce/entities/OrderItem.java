@@ -3,21 +3,13 @@ package com.devleo.project.ecommerce.entities;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
 
 import java.util.Objects;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@Getter
-@Setter
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
 
-    @Setter
-    @Getter
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
 
@@ -52,5 +44,29 @@ public class OrderItem {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public OrderItemPK getId() {
+        return id;
+    }
+
+    public void setId(OrderItemPK id) {
+        this.id = id;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
