@@ -18,6 +18,8 @@ public class ProductDto {
 
     private Double price;
 
+    private String imgUrl;
+
     public ProductDto(Product entity){
         this.id = entity.getId();
 
@@ -26,6 +28,19 @@ public class ProductDto {
         this.description = entity.getDescription();
 
         this.price = entity.getPrice();
+
+        this.imgUrl = entity.getImgUrl();
+    }
+
+    public ProductDto(Long id, String name, String description, Double price, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgUrl = imgUrl;
+    }
+
+    public ProductDto(){
     }
 
     @Override
@@ -35,6 +50,7 @@ public class ProductDto {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 
@@ -68,5 +84,13 @@ public class ProductDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
