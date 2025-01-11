@@ -1,7 +1,9 @@
 package com.devleo.project.ecommerce.controllers;
 
+import com.devleo.project.ecommerce.dto.CustomError;
 import com.devleo.project.ecommerce.dto.ProductDto;
 import com.devleo.project.ecommerce.services.ProductService;
+import com.devleo.project.ecommerce.services.exceptions.ResourceNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -30,6 +33,7 @@ public class ProductController {
         ProductDto dto = productsService.findById(id);
 
         return ResponseEntity.ok(dto);
+
     }
 
     @GetMapping
@@ -56,5 +60,13 @@ public class ProductController {
         dto = productsService.update(id, dto);
 
         return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+
+        productsService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
