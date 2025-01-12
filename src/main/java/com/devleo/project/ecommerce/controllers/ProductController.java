@@ -4,6 +4,7 @@ import com.devleo.project.ecommerce.dto.CustomError;
 import com.devleo.project.ecommerce.dto.ProductDto;
 import com.devleo.project.ecommerce.services.ProductService;
 import com.devleo.project.ecommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> insert (@RequestBody ProductDto dto){
+    public ResponseEntity<ProductDto> insert (@Valid @RequestBody ProductDto dto){
         dto = productsService.insert(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -55,7 +56,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDto> update (@PathVariable Long id, @RequestBody ProductDto dto){
+    public ResponseEntity<ProductDto> update (@PathVariable Long id,@Valid @RequestBody ProductDto dto){
 
         dto = productsService.update(id, dto);
 
